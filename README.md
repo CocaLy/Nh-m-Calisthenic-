@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="vi" class="dark">
 <head>
@@ -24,6 +25,20 @@
                             card: '#1E1E24',
                             border: '#2A2A35'
                         }
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2s infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 15px rgba(254, 44, 85, 0.4)' },
+                            '50%': { boxShadow: '0 0 25px rgba(37, 244, 238, 0.6)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-6px)' },
+                        }
                     }
                 }
             }
@@ -40,17 +55,41 @@
                 radial-gradient(at 90% 90%, rgba(37, 244, 238, 0.12) 0px, transparent 50%);
             background-attachment: fixed;
         }
+
         .glass-card {
             background: rgba(26, 26, 36, 0.75);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
+
         .glass-card:hover {
             border-color: rgba(37, 244, 238, 0.3);
         }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #121212; }
-        ::-webkit-scrollbar-thumb { background: #333344; border-radius: 10px; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333344;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FE2C55;
+        }
+
+        /* Hide scrollbar for Chrome, Safari, Edge and Firefox */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
         .badge-pulse {
             position: relative;
         }
@@ -68,7 +107,6 @@
 </head>
 <body class="min-h-screen pb-12 flex flex-col items-center justify-start px-4 sm:px-6">
 
-    <!-- Toast thông báo khi copy link -->
     <div id="toast" class="fixed top-5 z-50 transform -translate-y-20 opacity-0 transition-all duration-300 ease-out bg-gray-900 border border-tiktok-cyan/40 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3 pointer-events-none">
         <i class="fa-solid fa-circle-check text-tiktok-cyan text-lg"></i>
         <span id="toast-message" class="text-sm font-medium">Đã sao chép liên kết!</span>
@@ -76,20 +114,15 @@
 
     <main class="w-full max-w-md mx-auto pt-8 flex flex-col items-center">
 
-        <!-- Nút Chia sẻ -->
-        <div class="w-full flex justify-end items-center mb-6">
-            <button type="button" onclick="copyToClipboard(window.location.href)" class="w-9 h-9 rounded-full bg-gray-800/80 border border-gray-700 flex items-center justify-center text-gray-300 hover:text-white hover:bg-gray-700 transition cursor-pointer" title="Chia sẻ trang web">
-                <i class="fa-solid fa-share-nodes text-sm"></i>
-            </button>
-        </div>
-
         <!-- Profile Card -->
         <div class="text-center mb-6 flex flex-col items-center w-full">
             <div class="relative mb-3">
                 <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 badge-pulse bg-gradient-to-tr from-tiktok-pink via-purple-500 to-tiktok-cyan overflow-hidden shadow-xl">
-                    <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=400&auto=format&fit=crop" 
-                         alt="Avatar" 
-                         class="w-full h-full object-cover object-center rounded-full">
+                    <img id="userAvatar"
+                         src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=400&auto=format&fit=crop" 
+                         alt="David Laid Discipline Avatar" 
+                         class="w-full h-full object-cover object-center rounded-full"
+                         onerror="this.src='https://placehold.co/200x200/1e1e24/25f4ee?text=CALI'">
                 </div>
                 <div class="absolute bottom-0 right-1 bg-tiktok-cyan text-gray-900 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold border-2 border-gray-900">
                     <i class="fa-solid fa-check"></i>
@@ -104,6 +137,7 @@
                 💪 Tổng hợp Lịch tập, Hướng dẫn từng nhóm cơ, Lộ Trình Cho Người Mới & Shop Dụng Cụ Shopee
             </p>
 
+            <!-- Quick Stats -->
             <div class="flex items-center gap-6 mt-4 py-2 px-6 rounded-2xl bg-gray-900/60 border border-gray-800/80 text-xs">
                 <div class="text-center">
                     <span class="font-bold text-white block">100%</span>
@@ -117,13 +151,12 @@
             </div>
         </div>
 
-        <!-- Danh sách các Link / Nút bấm -->
-        <div class="w-full space-y-3.5">
+        <div class="w-full space-y-3.5" id="linksContainer">
 
-            <!-- LINK 1: Lịch Tập -->
+            <!-- LINK 1: Lịch Tập Hàng Tuần -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('scheduleModal')" 
-                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-tiktok-cyan cursor-pointer">
+                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-tiktok-cyan">
                     <div class="flex items-center space-x-3.5">
                         <div class="w-11 h-11 rounded-xl bg-tiktok-cyan/10 text-tiktok-cyan flex items-center justify-center text-lg font-bold group-hover:bg-tiktok-cyan group-hover:text-gray-900 transition-colors">
                             <i class="fa-regular fa-calendar-check"></i>
@@ -140,10 +173,10 @@
                 </button>
             </div>
 
-            <!-- LINK 2: Thư Viện Bài Tập -->
+            <!-- LINK 2: Thư Viện Bài Tập Theo Nhóm Cơ -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('exercisesModal')" 
-                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-tiktok-pink cursor-pointer">
+                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-tiktok-pink">
                     <div class="flex items-center space-x-3.5">
                         <div class="w-11 h-11 rounded-xl bg-tiktok-pink/10 text-tiktok-pink flex items-center justify-center text-lg font-bold group-hover:bg-tiktok-pink group-hover:text-white transition-colors">
                             <i class="fa-solid fa-dumbbell"></i>
@@ -159,10 +192,30 @@
                 </button>
             </div>
 
-            <!-- LINK 3: Mở Khóa Người Mới -->
+            <!-- LINK NEW: Bài Tập Cardio Đốt Mỡ Riêng Biệt -->
+            <div class="link-item group">
+                <button type="button" onclick="openModal('cardioModal')" 
+                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-amber-500">
+                    <div class="flex items-center space-x-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg font-bold group-hover:bg-amber-500 group-hover:text-gray-900 transition-colors">
+                            <i class="fa-solid fa-fire-flame-curved"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold text-sm text-white flex items-center gap-1.5">
+                                Bài Tập Cardio Đốt Mỡ
+                                <span class="bg-amber-500/20 text-amber-300 text-[10px] px-1.5 py-0.5 rounded">Sáng sớm</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-0.5">Video hướng dẫn chuẩn lúc chưa ăn sáng</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-gray-500 text-xs group-hover:text-white group-hover:translate-x-1 transition"></i>
+                </button>
+            </div>
+
+            <!-- LINK 3: Lộ Trình Hỗ Trợ Người Mới -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('beginnerModal')" 
-                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-amber-400 cursor-pointer">
+                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-amber-400">
                     <div class="flex items-center space-x-3.5">
                         <div class="w-11 h-11 rounded-xl bg-amber-400/10 text-amber-400 flex items-center justify-center text-lg font-bold group-hover:bg-amber-400 group-hover:text-gray-900 transition-colors">
                             <i class="fa-solid fa-graduation-cap"></i>
@@ -179,10 +232,10 @@
                 </button>
             </div>
 
-            <!-- LINK 4: Link Shopee (Mở tab mới trực tiếp) -->
+            <!-- LINK 4: Cửa Hàng Dụng Cụ & Voucher -->
             <div class="link-item group">
-                <a href="https://shopee.vn" target="_blank" rel="noopener noreferrer" 
-                   class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-emerald-400 block">
+                <button type="button" onclick="openModal('shopModal')" 
+                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-emerald-400">
                     <div class="flex items-center space-x-3.5">
                         <div class="w-11 h-11 rounded-xl bg-emerald-400/10 text-emerald-400 flex items-center justify-center text-lg font-bold group-hover:bg-emerald-400 group-hover:text-gray-900 transition-colors">
                             <i class="fa-solid fa-cart-shopping"></i>
@@ -195,119 +248,99 @@
                             <p class="text-xs text-gray-400 mt-0.5">Xà đơn, Tạ đơn, Dây kháng lực combo</p>
                         </div>
                     </div>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-gray-500 text-xs group-hover:text-white transition"></i>
-                </a>
+                    <i class="fa-solid fa-chevron-right text-gray-500 text-xs group-hover:text-white group-hover:translate-x-1 transition"></i>
+                </button>
+            </div>
+
+            <!-- LINK 5: Bảng Chỉ Số Cá Nhân & BMI Calculator -->
+            <div class="link-item group">
+                <button type="button" onclick="openModal('bmiModal')" 
+                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-purple-400">
+                    <div class="flex items-center space-x-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-purple-400/10 text-purple-400 flex items-center justify-center text-lg font-bold group-hover:bg-purple-400 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold text-sm text-white flex items-center gap-1.5">
+                                Bảng Chỉ Số Nhóm & Máy Tính BMI
+                            </div>
+                            <p class="text-xs text-gray-400 mt-0.5">Dữ liệu Nhân, Bảo, Phát, Ngọc, Toàn, Thịnh</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-gray-500 text-xs group-hover:text-white group-hover:translate-x-1 transition"></i>
+                </button>
+            </div>
+
+            <!-- LINK 6: Video Giãn Cơ & Cardio Direct Link -->
+            <div class="link-item group">
+                <div class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left border-l-4 border-l-sky-400">
+                    <div class="flex items-center space-x-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-sky-400/10 text-sky-400 flex items-center justify-center text-lg font-bold group-hover:bg-sky-400 group-hover:text-gray-900 transition-colors">
+                            <i class="fa-solid fa-person-stretching"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold text-sm text-white flex items-center gap-1.5">
+                                Video Giãn Cơ Sau Khi Tập
+                                <i class="fa-brands fa-tiktok text-tiktok-cyan text-xs"></i>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-0.5">Hướng dẫn chi tiết trên TikTok</p>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" onclick="copyToClipboard('https://vt.tiktok.com/ZSbLND74V/')" class="px-3 py-2 bg-sky-500/20 text-sky-300 border border-sky-500/30 hover:bg-sky-500 hover:text-gray-900 text-xs font-semibold rounded-xl flex items-center gap-1.5 transition cursor-pointer shrink-0">
+                            <i class="fa-regular fa-copy"></i> Sao chép link video
+                        </button>
+                    </div>
+                </div>
             </div>
 
         </div>
 
+        <!-- Footer Info -->
         <footer class="mt-10 text-center text-xs text-gray-500 space-y-2">
-            <p>© 2026 Calisthenics TikTok Bio Hub.</p>
+            <p>© 2026 Calisthenics TikTok Bio Hub. Mọi video thuộc chủ sở hữu TikTok.</p>
+            <p class="text-[11px] text-gray-600">Nhấn vào từng mục để xem hướng dẫn chi tiết & lịch tập chuẩn.</p>
         </footer>
 
     </main>
 
 
-    <!-- ==================== PHẦN BẢNG NỘI DUNG (MODAL) ==================== -->
+    <!-- ==================== MODALS SECTION ==================== -->
 
-    <!-- Modal 1: Lịch tập -->
-    <div id="scheduleModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-end sm:items-center justify-center p-0 sm:p-4">
+    <!-- MODAL 1: LỊCH TẬP HÀNG TUẦN -->
+    <div id="scheduleModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
         <div class="bg-gray-900 border border-gray-800 w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl">
-            <div class="p-4 border-b border-gray-800 flex items-center justify-between bg-gray-900/90">
-                <h3 class="font-bold text-white text-base">Lịch Tập Hàng Tuần (T2 - CN)</h3>
+            <div class="p-4 border-b border-gray-800 flex items-center justify-between bg-gray-900/90 sticky top-0">
+                <div class="flex items-center gap-2">
+                    <i class="fa-regular fa-calendar-check text-tiktok-cyan"></i>
+                    <h3 class="font-bold text-white text-base">Lịch Tập Hàng Tuần</h3>
+                </div>
                 <button type="button" onclick="closeModal('scheduleModal')" class="w-8 h-8 rounded-full bg-gray-800 text-gray-400 hover:text-white flex items-center justify-center">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-            <div class="p-4 overflow-y-auto space-y-3 text-sm">
-                <div class="p-3 bg-gray-800/60 rounded-xl flex justify-between items-center">
-                    <span class="font-bold text-tiktok-cyan">Thứ 2</span>
-                    <span>Ngực, Vai, Tay sau</span>
+            
+            <div class="p-4 overflow-y-auto space-y-3">
+                <div class="p-3 bg-tiktok-cyan/10 border border-tiktok-cyan/20 rounded-xl text-xs text-tiktok-cyan flex items-center gap-2">
+                    <i class="fa-solid fa-lightbulb text-sm"></i>
+                    <span><strong>Cardio:</strong> Khuyên dùng nên tập lúc chưa ăn sáng để tối ưu đốt mỡ!</span>
                 </div>
-                <div class="p-3 bg-gray-800/60 rounded-xl flex justify-between items-center">
-                    <span class="font-bold text-tiktok-pink">Thứ 3</span>
-                    <span>Lưng - xô, Tay trước</span>
-                </div>
-                <div class="p-3 bg-gray-800/60 rounded-xl flex justify-between items-center">
-                    <span class="font-bold text-amber-400">Thứ 4</span>
-                    <span>Chân, Bụng (Core)</span>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Modal 2: Thư viện bài tập -->
-    <div id="exercisesModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-end sm:items-center justify-center p-0 sm:p-4">
-        <div class="bg-gray-900 border border-gray-800 w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl">
-            <div class="p-4 border-b border-gray-800 flex items-center justify-between bg-gray-900/90">
-                <h3 class="font-bold text-white text-base">Thư Viện Bài Tập</h3>
-                <button type="button" onclick="closeModal('exercisesModal')" class="w-8 h-8 rounded-full bg-gray-800 text-gray-400 hover:text-white flex items-center justify-center">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="p-4 overflow-y-auto space-y-3 text-sm text-gray-300">
-                <p>👉 Tổng hợp các video hướng dẫn động tác chuẩn kỹ thuật từ cơ bản đến nâng cao.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 3: Người mới -->
-    <div id="beginnerModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-end sm:items-center justify-center p-0 sm:p-4">
-        <div class="bg-gray-900 border border-gray-800 w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl">
-            <div class="p-4 border-b border-gray-800 flex items-center justify-between bg-gray-900/90">
-                <h3 class="font-bold text-white text-base">Lộ Trình Người Mới</h3>
-                <button type="button" onclick="closeModal('beginnerModal')" class="w-8 h-8 rounded-full bg-gray-800 text-gray-400 hover:text-white flex items-center justify-center">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="p-4 overflow-y-auto space-y-3 text-sm text-gray-300">
-                <p>👉 Hướng dẫn từng bước cho người chưa từng tập Calisthenics.</p>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- ==================== ĐOẠN JAVASCRIPT ĐIỀU KHIỂN ==================== -->
-    <script>
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const toast = document.getElementById('toast');
-                toast.classList.remove('-translate-y-20', 'opacity-0');
-                toast.classList.add('translate-y-0', 'opacity-100');
-                setTimeout(() => {
-                    toast.classList.remove('translate-y-0', 'opacity-100');
-                    toast.classList.add('-translate-y-20', 'opacity-0');
-                }, 2000);
-            });
-        }
-
-        // Bấm ra ngoài vùng đen để tự đóng modal
-        window.onclick = function(event) {
-            if (event.target.classList.contains('fixed') && event.target.classList.contains('inset-0')) {
-                event.target.classList.add('hidden');
-                event.target.classList.remove('flex');
-                document.body.style.overflow = 'auto';
-            }
-        }
-    </script>
-</body>
-</html>
-
+                <div class="grid grid-cols-1 gap-2.5">
+                    <div class="p-3.5 bg-gray-800/60 rounded-xl border border-gray-700/50 flex justify-between items-center">
+                        <span class="font-bold text-tiktok-cyan text-sm w-12">Thứ 2</span>
+                        <span class="text-sm text-gray-200 font-semibold">Ngực, Vai, Tay sau</span>
+                        <span class="text-[10px] bg-gray-700 text-gray-300 px-2 py-1 rounded-full">Buổi 1</span>
+                    </div>
+                    <div class="p-3.5 bg-gray-800/60 rounded-xl border border-gray-700/50 flex justify-between items-center">
+                        <span class="font-bold text-tiktok-pink text-sm w-12">Thứ 3</span>
+                        <span class="text-sm text-gray-200 font-semibold">Lưng - xô, Tay trước</span>
+                        <span class="text-[10px] bg-gray-700 text-gray-300 px-2 py-1 rounded-full">Buổi 2</span>
+                    </div>
+                    <div class="p-3.5 bg-gray-800/60 rounded-xl border border-gray-700/50 flex justify-between items-center">
+                        <span class="font-bold text-amber-400 text-sm w-12">Thứ 4</span>
+                        <span class="text-sm text-gray-200 font-semibold">Bụng, Chân</span>
+                        <span class="text-[10px] bg-gray-700 text-gray-300 px-2 py-1 rounded-full">Buổi 3</span>
+                    </div>
+                    <div class="p-3.5 bg-gray-800/60 rounded-xl border border-gray-700/50 flex justify-between items-center">
+                        <span class="font-bold text
