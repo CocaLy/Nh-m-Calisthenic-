@@ -156,7 +156,7 @@
             <!-- LINK 1: Lịch Tập Hàng Tuần -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('scheduleModal')" 
-                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-tiktok-cyan">
+                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-tiktok-cyan cursor-pointer">
                     <div class="flex items-center space-x-3.5">
                         <div class="w-11 h-11 rounded-xl bg-tiktok-cyan/10 text-tiktok-cyan flex items-center justify-center text-lg font-bold group-hover:bg-tiktok-cyan group-hover:text-gray-900 transition-colors">
                             <i class="fa-regular fa-calendar-check"></i>
@@ -176,7 +176,7 @@
             <!-- LINK 2: Thư Viện Bài Tập Theo Nhóm Cơ -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('exercisesModal')" 
-                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-tiktok-pink">
+                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-tiktok-pink cursor-pointer">
                     <div class="flex items-center space-x-3.5">
                         <div class="w-11 h-11 rounded-xl bg-tiktok-pink/10 text-tiktok-pink flex items-center justify-center text-lg font-bold group-hover:bg-tiktok-pink group-hover:text-white transition-colors">
                             <i class="fa-solid fa-dumbbell"></i>
@@ -195,7 +195,7 @@
             <!-- LINK NEW: Bài Tập Cardio Đốt Mỡ Riêng Biệt -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('cardioModal')" 
-                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-amber-500">
+                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-amber-500 cursor-pointer">
                     <div class="flex items-center space-x-3.5">
                         <div class="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg font-bold group-hover:bg-amber-500 group-hover:text-gray-900 transition-colors">
                             <i class="fa-solid fa-fire-flame-curved"></i>
@@ -215,7 +215,7 @@
             <!-- LINK 3: Lộ Trình Hỗ Trợ Người Mới -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('beginnerModal')" 
-                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-amber-400">
+                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-amber-400 cursor-pointer">
                     <div class="flex items-center space-x-3.5">
                         <div class="w-11 h-11 rounded-xl bg-amber-400/10 text-amber-400 flex items-center justify-center text-lg font-bold group-hover:bg-amber-400 group-hover:text-gray-900 transition-colors">
                             <i class="fa-solid fa-graduation-cap"></i>
@@ -235,7 +235,7 @@
             <!-- LINK 4: Cửa Hàng Dụng Cụ & Voucher -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('shopModal')" 
-                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-emerald-400">
+                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-emerald-400 cursor-pointer">
                     <div class="flex items-center space-x-3.5">
                         <div class="w-11 h-11 rounded-xl bg-emerald-400/10 text-emerald-400 flex items-center justify-center text-lg font-bold group-hover:bg-emerald-400 group-hover:text-gray-900 transition-colors">
                             <i class="fa-solid fa-cart-shopping"></i>
@@ -255,7 +255,7 @@
             <!-- LINK 5: Bảng Chỉ Số Cá Nhân & BMI Calculator -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('bmiModal')" 
-                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-purple-400">
+                        class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-purple-400 cursor-pointer">
                     <div class="flex items-center space-x-3.5">
                         <div class="w-11 h-11 rounded-xl bg-purple-400/10 text-purple-400 flex items-center justify-center text-lg font-bold group-hover:bg-purple-400 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-calculator"></i>
@@ -307,7 +307,6 @@
 
     <!-- ==================== MODALS SECTION ==================== -->
 
-    <!-- MODAL 1: LỊCH TẬP HÀNG TUẦN -->
     <div id="scheduleModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
         <div class="bg-gray-900 border border-gray-800 w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl">
             <div class="p-4 border-b border-gray-800 flex items-center justify-between bg-gray-900/90 sticky top-0">
@@ -315,7 +314,7 @@
                     <i class="fa-regular fa-calendar-check text-tiktok-cyan"></i>
                     <h3 class="font-bold text-white text-base">Lịch Tập Hàng Tuần</h3>
                 </div>
-                <button type="button" onclick="closeModal('scheduleModal')" class="w-8 h-8 rounded-full bg-gray-800 text-gray-400 hover:text-white flex items-center justify-center">
+                <button type="button" onclick="closeModal('scheduleModal')" class="w-8 h-8 rounded-full bg-gray-800 text-gray-400 hover:text-white flex items-center justify-center cursor-pointer">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -342,5 +341,4 @@
                         <span class="text-sm text-gray-200 font-semibold">Bụng, Chân</span>
                         <span class="text-[10px] bg-gray-700 text-gray-300 px-2 py-1 rounded-full">Buổi 3</span>
                     </div>
-                    <div class="p-3.5 bg-gray-800/60 rounded-xl border border-gray-700/50 flex justify-between items-center">
-                        <span class="font-bold text
+                    <div class="p-3.5 bg-gray-800/60 rounded-xl border border-gray-700/50 flex justify-between it
