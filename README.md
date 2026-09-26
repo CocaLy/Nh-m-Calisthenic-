@@ -159,7 +159,7 @@
 
         <div class="w-full space-y-3.5" id="linksContainer">
 
-            <!-- LINK 1: Lịch Tập Hàng Tuần -->
+            <!-- LINK 1 -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('scheduleModal')" 
                         class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-tiktok-cyan cursor-pointer">
@@ -179,7 +179,7 @@
                 </button>
             </div>
 
-            <!-- LINK 2: Thư Viện Bài Tập Theo Nhóm Cơ -->
+            <!-- LINK 2 -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('exercisesModal')" 
                         class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-tiktok-pink cursor-pointer">
@@ -198,7 +198,7 @@
                 </button>
             </div>
 
-            <!-- LINK 3: Bài Tập Cardio Đốt Mỡ -->
+            <!-- LINK 3 -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('cardioModal')" 
                         class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-amber-500 cursor-pointer">
@@ -218,7 +218,7 @@
                 </button>
             </div>
 
-            <!-- LINK 4: Lộ Trình Hỗ Trợ Người Mới -->
+            <!-- LINK 4 -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('beginnerModal')" 
                         class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-amber-400 cursor-pointer">
@@ -238,7 +238,7 @@
                 </button>
             </div>
 
-            <!-- LINK 5: Cửa Hàng Dụng Cụ & Voucher -->
+            <!-- LINK 5 -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('shopModal')" 
                         class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-emerald-400 cursor-pointer">
@@ -258,7 +258,7 @@
                 </button>
             </div>
 
-            <!-- LINK 6: Bảng Chỉ Số Cá Nhân & BMI Calculator -->
+            <!-- LINK 6 -->
             <div class="link-item group">
                 <button type="button" onclick="openModal('bmiModal')" 
                         class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] border-l-4 border-l-purple-400 cursor-pointer">
@@ -277,7 +277,7 @@
                 </button>
             </div>
 
-            <!-- LINK 7: Video Giãn Cơ Direct Link -->
+            <!-- LINK 7 -->
             <div class="link-item group">
                 <div class="w-full p-4 rounded-2xl glass-card flex items-center justify-between text-left border-l-4 border-l-sky-400">
                     <div class="flex items-center space-x-3.5">
@@ -312,6 +312,7 @@
 
     <!-- ==================== MODALS SECTION ==================== -->
 
+    <!-- Modal 1: Schedule -->
     <div id="scheduleModal" class="custom-modal fixed inset-0 z-50 bg-black/80 backdrop-blur-md items-end sm:items-center justify-center p-0 sm:p-4">
         <div class="bg-gray-900 border border-gray-800 w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl">
             <div class="p-4 border-b border-gray-800 flex items-center justify-between bg-gray-900/90 sticky top-0">
@@ -346,4 +347,10 @@
                         <span class="text-sm text-gray-200 font-semibold">Bụng, Chân</span>
                         <span class="text-[10px] bg-gray-700 text-gray-300 px-2 py-1 rounded-full">Buổi 3</span>
                     </div>
-                    <div class="p-3.5 bg-gray
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Exercises -->
+    <div id="exercisesModal" class="custom-modal fixed inset-0 z-50 bg-black/80 backdrop-blur-md items-end 
