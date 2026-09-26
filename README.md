@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="vi" class="dark">
 <head>
@@ -347,4 +346,4 @@
                         <span class="text-sm text-gray-200 font-semibold">Bụng, Chân</span>
                         <span class="text-[10px] bg-gray-700 text-gray-300 px-2 py-1 rounded-full">Buổi 3</span>
                     </div>
-                    <div class="p-3.5
+                    <div class="p-3.5 bg-gray
